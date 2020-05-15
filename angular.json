@@ -1,0 +1,141 @@
+{
+  "version": 1,
+  "projects": {
+    "lazy-loading-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/lazy-loading-demo",
+      "sourceRoot": "apps/lazy-loading-demo/src",
+      "prefix": "lazy-loadin-demo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/lazy-loading-demo",
+            "index": "apps/lazy-loading-demo/src/index.html",
+            "main": "apps/lazy-loading-demo/src/main.ts",
+            "polyfills": "apps/lazy-loading-demo/src/polyfills.ts",
+            "tsConfig": "apps/lazy-loading-demo/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/lazy-loading-demo/src/favicon.ico",
+              "apps/lazy-loading-demo/src/assets"
+            ],
+            "styles": ["apps/lazy-loading-demo/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/lazy-loading-demo/src/environments/environment.ts",
+                  "with": "apps/lazy-loading-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "lazy-loading-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "lazy-loading-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "lazy-loading-demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/lazy-loading-demo/tsconfig.app.json",
+              "apps/lazy-loading-demo/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/lazy-loading-demo/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/lazy-loading-demo/jest.config.js",
+            "tsConfig": "apps/lazy-loading-demo/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/lazy-loading-demo/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "lazy-loading-demo-e2e": {
+      "root": "apps/lazy-loading-demo-e2e",
+      "sourceRoot": "apps/lazy-loading-demo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/lazy-loading-demo-e2e/cypress.json",
+            "tsConfig": "apps/lazy-loading-demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "lazy-loading-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "lazy-loading-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/lazy-loading-demo-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/lazy-loading-demo-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "lazy-loading-demo"
+}
