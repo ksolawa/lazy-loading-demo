@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'lazy-loadin-demo-root',
-  templateUrl: './app.component.html',
+  template: `
+    <cat-generator></cat-generator>
+  `,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'lazy-loading-demo';
 }

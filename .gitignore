@@ -1,7 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
+target/
+dist/
 /tmp
 /out-tsc
 
@@ -16,13 +17,7 @@
 *.launch
 .settings/
 *.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+*.iml
 
 # misc
 /.sass-cache
@@ -37,3 +32,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
